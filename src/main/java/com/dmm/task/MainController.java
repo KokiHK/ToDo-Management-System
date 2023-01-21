@@ -1,8 +1,7 @@
 package com.dmm.task;
 
-import java.sql.Date;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,51 +15,98 @@ public class MainController {
 		return "main";
 	}
 
-	public int[][] calendarMatrix;
+	//	//public int[][] calendarMatrix;
+	//
+	//	List<Date> Week = new ArrayList<Date>();
+	//
+	//	LocalDate Id;
+	//
+	//	private void setLd(int month) {
+	//		this.Id = LocalDate.of(this.getWeek().getValue(), month, 1);
+	//	}
+	//	
+	//	private int getFirstDay() {
+	//		return getLd().getDayOfWeek().getValue() - 1;
+	//	}
+	//	
+	//
+	//	private Month getWeek() {
+	//
+	//		return this.getWeek();
+	//	}
+	//
+	//	private LocalDate getLd() {
+	//		return this.Id;
+	//	}
+	//
+	//	
+	//	private int getMonthLength() {
+	//		Month thisMonth = Month.from(getLd());
+	//		return thisMonth.length(this.Id.isLeapYear());
+	//	}
+	//
+	//	
+	//	
+	//
+	//	public void calcFields() {
+	//
+	//		int row = 0;
+	//		int FD = getFirstDay();
+	//
+	//		for (int date = 1; date <= getMonthLength(); date++) {
+	//			
+	//			
+	//			
+	//			this.calendarMatrix[row][FD] = date;
+	//			
+	//		}
+	//	}
 
-	List<Date> Week = new ArrayList<Date>();
+	List<List<LocalDate>> month = new ArrayList<>();
 
-	LocalDate Id;
+	List<LocalDate> week = new ArrayList<>();
 
-	private void setLd(int month) {
-		this.Id = LocalDate.of(this.getWeek().getValue(), month, 1);
-	}
-	
-	private int getFirstDay() {
-		return getLd().getDayOfWeek().getValue() - 1;
-	}
-	
+	LocalDate day;
+	{
 
-	private Month getWeek() {
+		day = LocalDate.now();
+		day = LocalDate.of(day.getYear(), day.getMonthValue(), 1);
 
-		return this.getWeek();
-	}
+		DayOfWeek w = day.getDayOfWeek();
+		day = day.minusDays(w.getValue());
 
-	private LocalDate getLd() {
-		return this.Id;
-	}
-
-	
-	private int getMonthLength() {
-		Month thisMonth = Month.from(getLd());
-		return thisMonth.length(this.Id.isLeapYear());
-	}
-
-	
-	
-
-	public void calcFields() {
-
-		int row = 0;
-		int FD = getFirstDay();
-
-		for (int date = 1; date <= getMonthLength(); date++) {
-			this.calendarMatrix[row][FD] = date;
-			
+		for (int i = 1; i <= 7; i++) {
+			day = day.plusDays(1);
+			week.add(day);
 		}
-	}
-	
-	
-	
+		month.add(week);
+		
+		week = new ArrayList<>();
 
+		for (int i = 7; i <= day.lengthOfMonth(); i++) {
+			
+			day = day.plusDays(1);
+			week.add(day);
+		}
+		month.add(week);
+	 
+		
+		
+			
+		
+		
+		
+		//7日間入れた後weekの初期化忘れないこと
+			
+			
+		}	
+
+		
+	
+		
+	
+		
+		
+
+	}
 }

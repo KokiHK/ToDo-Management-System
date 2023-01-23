@@ -12,101 +12,49 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 	@GetMapping("/main")
 	public String main() {
+
+		List<List<LocalDate>> month = new ArrayList<>();
+
+		List<LocalDate> week = new ArrayList<>();
+
+		LocalDate day;
+		{
+
+			day = LocalDate.now();
+			day = LocalDate.of(day.getYear(), day.getMonthValue(), 1);
+
+			DayOfWeek w = day.getDayOfWeek();
+			day = day.minusDays(w.getValue());
+
+			for (int i = 1; i <= 7; i++) {
+				day = day.plusDays(1);
+				week.add(day);
+			}
+			month.add(week);
+			//System.out.println(week);
+			week = new ArrayList<>();
+
+			for (int i = 7; i <= day.lengthOfMonth(); i++) {
+
+				DayOfWeek q = day.getDayOfWeek();
+
+				if (q == DayOfWeek.SATURDAY) {
+
+					month.add(week);
+
+					week = new ArrayList<>();
+
+					day = day.plusDays(i);
+				}
+				System.out.println(month);
+			}
+
+			//7日間入れた後weekの初期化忘れないこと
+			//列挙型if文書き方。
+			//day 代入していく
+
+		}
+
 		return "main";
-	}
-
-	//	//public int[][] calendarMatrix;
-	//
-	//	List<Date> Week = new ArrayList<Date>();
-	//
-	//	LocalDate Id;
-	//
-	//	private void setLd(int month) {
-	//		this.Id = LocalDate.of(this.getWeek().getValue(), month, 1);
-	//	}
-	//	
-	//	private int getFirstDay() {
-	//		return getLd().getDayOfWeek().getValue() - 1;
-	//	}
-	//	
-	//
-	//	private Month getWeek() {
-	//
-	//		return this.getWeek();
-	//	}
-	//
-	//	private LocalDate getLd() {
-	//		return this.Id;
-	//	}
-	//
-	//	
-	//	private int getMonthLength() {
-	//		Month thisMonth = Month.from(getLd());
-	//		return thisMonth.length(this.Id.isLeapYear());
-	//	}
-	//
-	//	
-	//	
-	//
-	//	public void calcFields() {
-	//
-	//		int row = 0;
-	//		int FD = getFirstDay();
-	//
-	//		for (int date = 1; date <= getMonthLength(); date++) {
-	//			
-	//			
-	//			
-	//			this.calendarMatrix[row][FD] = date;
-	//			
-	//		}
-	//	}
-
-	List<List<LocalDate>> month = new ArrayList<>();
-
-	List<LocalDate> week = new ArrayList<>();
-
-	LocalDate day;
-	{
-
-		day = LocalDate.now();
-		day = LocalDate.of(day.getYear(), day.getMonthValue(), 1);
-
-		DayOfWeek w = day.getDayOfWeek();
-		day = day.minusDays(w.getValue());
-
-		for (int i = 1; i <= 7; i++) {
-			day = day.plusDays(1);
-			week.add(day);
-		}
-		month.add(week);
-		
-		week = new ArrayList<>();
-
-		for (int i = 7; i <= day.lengthOfMonth(); i++) {
-			
-			day = day.plusDays(1);
-			week.add(day);
-		}
-		month.add(week);
-	 
-		
-		
-			
-		
-		
-		
-		//7日間入れた後weekの初期化忘れないこと
-			
-			
-		}	
-
-		
-	
-		
-	
-		
-		
-
 	}
 }

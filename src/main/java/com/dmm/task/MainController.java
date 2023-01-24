@@ -36,18 +36,25 @@ public class MainController {
 
 			for (int i = 7; i <= day.lengthOfMonth(); i++) {
 
+				week.add(day);
+
 				DayOfWeek q = day.getDayOfWeek();
+				
+				day = day.plusDays(1);
 
 				if (q == DayOfWeek.SATURDAY) {
+
+					week.add(day);
 
 					month.add(week);
 
 					week = new ArrayList<>();
 
-					day = day.plusDays(i);
 				}
-				System.out.println(month);
+				
+
 			}
+			System.out.println(month);
 
 			//7日間入れた後weekの初期化忘れないこと
 			//列挙型if文書き方。

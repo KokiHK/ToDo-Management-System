@@ -1,5 +1,7 @@
 package com.dmm.task;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 	@GetMapping("/main")
 	public String main() {
+		
+		
 
 		List<List<LocalDate>> month = new ArrayList<>();
 
@@ -19,49 +23,48 @@ public class MainController {
 
 		LocalDate day;
 		{
-
 			day = LocalDate.now();
 			day = LocalDate.of(day.getYear(), day.getMonthValue(), 1);
 
 			DayOfWeek w = day.getDayOfWeek();
-			day = day.minusDays(w.getValue());
+			if (w == DayOfWeek.SUNDAY) {
+				// 何もしない
+			} else {
+				day = day.minusDays(w.getValue());
+			}
 
 			for (int i = 1; i <= 7; i++) {
-				day = day.plusDays(1);
 				week.add(day);
+				day = day.plusDays(1);
 			}
 			month.add(week);
-			//System.out.println(week);
 			week = new ArrayList<>();
 
+			System.out.println(day.lengthOfMonth());
 			for (int i = 7; i <= day.lengthOfMonth(); i++) {
 
 				week.add(day);
 
 				DayOfWeek q = day.getDayOfWeek();
-				
-				day = day.plusDays(1);
-
 				if (q == DayOfWeek.SATURDAY) {
-
-					week.add(day);
-
 					month.add(week);
-
 					week = new ArrayList<>();
-
 				}
-				
 
+				day = day.plusDays(1);
 			}
+
 			System.out.println(month);
-
-			//7日間入れた後weekの初期化忘れないこと
-			//列挙型if文書き方。
-			//day 代入していく
-
 		}
 
+		
+		model.addAttribute("matrix", month);
+		
+		
 		return "main";
 	}
+
+	
+	
 }
+

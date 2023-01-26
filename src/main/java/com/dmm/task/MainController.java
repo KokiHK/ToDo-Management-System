@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -57,7 +59,9 @@ public class MainController {
 			System.out.println(month);
 		}
 
-		
+		MultiValueMap<LocalDate, Tasks> tasks = new LinkedMultiValueMap<LocalDate, Tasks>();
+
+		model.addAttribute("tasks", tasks);
 		model.addAttribute("matrix", month);
 		
 		

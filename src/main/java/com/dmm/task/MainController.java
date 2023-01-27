@@ -1,13 +1,12 @@
 package com.dmm.task;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainController {
 	@GetMapping("/main")
-	public String main() {
+	public String main(Model model) {
 		
 		
 
@@ -61,6 +60,7 @@ public class MainController {
 
 		MultiValueMap<LocalDate, Tasks> tasks = new LinkedMultiValueMap<LocalDate, Tasks>();
 
+		
 		model.addAttribute("tasks", tasks);
 		model.addAttribute("matrix", month);
 		
